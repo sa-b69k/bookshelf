@@ -27,7 +27,7 @@ function searchXhrEvent(xhr, nextPage) {
  * 総合検索ボタンの活性非活性制御
  */
 function activateSearchButton() {
-	let searchButton = document.getElementById('total-search');
+	let searchButton = document.getElementById('total-search-button');
 	// 検索ボックスに入力値がある場合
 	if (document.getElementById('keyword').value) {
 		searchButton.disabled = false;
@@ -47,7 +47,7 @@ fetch('/' + APP_NAME + '/html/header.html')
 		document.getElementById('keyword').value = sessionStorage.getItem('keyword');
 
 		// 総合検索ボタンにリスナーを登録する
-		document.getElementById('total-search').addEventListener('click', function(e) {
+		document.getElementById('total-search-button').addEventListener('click', function(e) {
 			// セッションストレージにパラメータ値を保存する
 			sessionStorage.setItem('operationType', 'executeAPI');
 			sessionStorage.setItem('sort', 'standard');

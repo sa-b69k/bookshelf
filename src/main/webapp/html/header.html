@@ -6,11 +6,13 @@
 </head>
 
 <body>
-	<a href="/Bookshelf/index.html"><img src="/Bookshelf/img/kinokuniya.png"></a>
-	<form>
-		<input id="keyword" type="text" placeholder="書籍名、キーワード" onInput="activateSearchButton()">
-		<input id="total-search" type="button" value="検索" data-page="1" disabled>
-	</form>
+	<div class="header-main">
+		<a href="/Bookshelf/index.html"><img src="/Bookshelf/img/kinokuniya.png"></a>
+		<form>
+			<input id="keyword" type="text" placeholder="書籍名、キーワード" onInput="activateSearchButton()">
+			<input id="total-search-button" type="button" value="" data-page="1" disabled>
+		</form>
+	</div>
 	<nav>
 		<ul class="global-navi">
 			<li><a href="#" id="my-page">My本棚</a></li>
