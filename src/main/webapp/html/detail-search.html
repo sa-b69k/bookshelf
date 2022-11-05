@@ -1,28 +1,42 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-<meta charset="UTF-8">
-<title>詳細検索</title>
-<link rel="shortcut icon" href="../img/favicon.ico"></link>
-<link rel="stylesheet" href="../css/style.css">
+	<meta charset="UTF-8">
+	<title>詳細検索</title>
+	<link rel="shortcut icon" href="../img/favicon.ico">
+	<link rel="stylesheet" href="../css/style.css">
 </head>
+
 <body>
-<header><!-- ヘッダー --></header>
-<main>
-	<h1>詳細検索</h1>
-	<form>
-		<ul id="search-condition">
-			<li><label>書籍名</label><input id="title" type="text" /></li>
-			<li><label>著者</label><input id="author" type="text" /></li>
-			<li><label>出版社</label><input id="publisher" type="text" /></li>
-			<li><label>ISBN</label><input id="isbn" type="text" /></li>
-		</ul>
-		<input id="clear" type="button" value="条件クリア" disabled />
-		<input id="detail-search" type="button" value="検索" data-page="1" disabled />
-	</form>
-</main>
-<footer><!-- フッター --></footer>
-<script type="text/javascript" src="../js/common.js"></script>
-<script type="text/javascript" src="../js/detail-search.js"></script>
+	<!-- headerここから -->
+	<header>
+	</header>
+	<!-- headerここまで -->
+
+	<!-- mainここから -->
+	<main>
+		<h1>詳細検索</h1>
+		<form>
+			<ul id="search-condition">
+				<li><label>書籍名</label><input id="title" type="text"></li>
+				<li><label>著者</label><input id="author" type="text"></li>
+				<li><label>出版社</label><input id="publisher" type="text"></li>
+				<li><label>ISBN</label><input id="isbn" type="text"></li>
+			</ul>
+			<input id="clear" type="button" value="条件クリア" disabled>
+			<input id="detail-search" type="button" value="検索" data-page="1" disabled>
+		</form>
+	</main>
+	<!-- mainここまで -->
+
+	<!-- footerここから -->
+	<footer>
+	</footer>
+	<!-- footerここまで -->
+
+	<script type="text/javascript" src="../js/common.js"></script>
+	<script type="text/javascript" src="../js/detail-search.js"></script>
 </body>
+
 </html>

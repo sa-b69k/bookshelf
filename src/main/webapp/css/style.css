@@ -1,13 +1,16 @@
-@charset "UTF-8";
+@charset "utf-8";
+
 html {
 	position: relative;
 	min-height: 100%;
 }
+
 body {
 	margin-top: 150px;
 	margin-bottom: 50px;
 	overflow-x: hidden;
 }
+
 header {
 	position: fixed;
 	top: 0;
@@ -16,6 +19,7 @@ header {
 	background: #fff;
 	color: #fff;
 }
+
 footer {
 	position: absolute;
 	bottom: 0;
@@ -30,10 +34,12 @@ footer {
 	width: 100%;
 	background-color: rgb(0, 128, 192);
 }
+
 .global-navi li {
 	display: inline-block;
 	width: 100px;
 }
+
 .global-navi li a {
 	text-decoration: none;
 	color: #fff;
@@ -43,9 +49,11 @@ footer {
 #search-condition {
 	list-style: none;
 }
+
 #search-condition li {
 	margin: 1em;
 }
+
 #search-condition label {
 	display: inline-block;
 	padding-bottom: 10px;
@@ -56,6 +64,7 @@ footer {
 .search-result ul {
 	list-style: none;
 }
+
 /* 本棚の内容 */
 .bookshelf-contents ul {
 	list-style: none;
@@ -67,12 +76,14 @@ footer {
 	margin: auto;
 	list-style: none;
 }
+
 .pagination li {
 	display: inline-block;
 	margin: 5px;
 	width: fit-content;
 	height: 25px;
 }
+
 .pagination li a {
 	padding: 5px;
 	width: 100%;
@@ -80,10 +91,13 @@ footer {
 	text-align: center;
 	text-decoration: none;
 }
+
 .pagination li a[id="current-page"] {
 	background-color: rgb(0, 128, 192);
 	color: #fff;
 }
+
 .page-navi {
-	display: flex;  /* 件数表示とページネーションを横並びにする */
+	display: flex;
+	/* 件数表示とページネーションを横並びにする */
 }
