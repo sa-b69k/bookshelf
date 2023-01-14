@@ -10,53 +10,57 @@
 
 <body>
 	<!-- headerここから -->
-	<header>
-	</header>
+	<header></header>
 	<!-- headerここまで -->
 
-	<!-- mainここから -->
-	<main>
-		<div class="header-content-navi">
-			<select name="sort">
-				<option value="standard">標準</option>
-				<option value="sales">売れている</option>
-				<option value="-releaseDate">発売日(新しい)</option>
-				<option value="+releaseDate">発売日(古い)</option>
-			</select>
+	<div class="side">
+		<!-- mainここから -->
+		<main>
+			<div class="header-content-navi">
+				<select name="sort">
+					<option value="standard">標準</option>
+					<option value="sales">売れている</option>
+					<option value="-releaseDate">発売日(新しい)</option>
+					<option value="+releaseDate">発売日(古い)</option>
+				</select>
+				<!-- ページネーション -->
+				<div class="page-navi">
+					<div class="display-count">
+					</div>
+					<div class="pagination">
+						<ul></ul>
+					</div>
+				</div>
+			</div>
+			<!-- 検索結果 -->
+			<div class="search-result">
+				<ul id="item-list"></ul>
+			</div>
+			<form>
+				<input id="select-all" type="button" value="全選択">
+				<input id="register" type="button" value="登録" disabled>
+			</form>
+	
 			<!-- ページネーション -->
-			<div class="page-navi">
-				<div class="display-count">
-				</div>
-				<div class="pagination">
-					<ul></ul>
-				</div>
-			</div>
-		</div>
-		<!-- 検索結果 -->
-		<div class="search-result">
-			<ul id="item-list"></ul>
-		</div>
-		<form>
-			<input id="select-all" type="button" value="全選択">
-			<input id="register" type="button" value="登録" disabled>
-		</form>
-
-		<!-- ページネーション -->
-		<div class="footer-content-navi">
-			<div class="page-navi">
-				<div class="display-count">
-				</div>
-				<div class="pagination">
-					<ul></ul>
+			<div class="footer-content-navi">
+				<div class="page-navi">
+					<div class="display-count">
+					</div>
+					<div class="pagination">
+						<ul></ul>
+					</div>
 				</div>
 			</div>
-		</div>
-	</main>
-	<!-- mainここまで -->
+		</main>
+		<!-- mainここまで -->
+	
+		<!-- asideここから -->
+		<aside></aside>
+		<!-- asideここまで -->
+	</div>
 
 	<!-- footerここから -->
-	<footer>
-	</footer>
+	<footer></footer>
 	<!-- footerここまで -->
 
 	<script type="text/javascript" src="../js/common.js"></script>

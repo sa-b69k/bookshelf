@@ -94,6 +94,15 @@ fetch('/' + APP_NAME + '/html/header.html')
 		});
 	});
 
+// サイドバーを読み込む
+fetch('/' + APP_NAME + '/html/sidebar.html')
+	.then(response => {
+		return response.text();
+	})
+	.then(data => {
+		document.querySelector('aside').innerHTML = data;
+	});
+
 // フッターを読み込む
 fetch('/' + APP_NAME + '/html/footer.html')
 	.then(response => {
