@@ -121,8 +121,14 @@ let items = document.getElementById('item-list');
 //データ件数分ループ
 for (let i = 0; i < searchResult.Items.length; i++) {
 	let item = document.createElement('li');
+	item.className = 'item';
 	let infos = document.createElement('ul');
+	infos.className = 'item-info';
 	infos.id = 'item' + i + '-info-list';
+
+	// 画像データ等
+	let imageData = document.createElement('div');
+	imageData.id = 'image-data';
 
 	// 画像を追加する
 	let imageInfo = document.createElement('li');
@@ -130,13 +136,13 @@ for (let i = 0; i < searchResult.Items.length; i++) {
 	let image = document.createElement('img');
 	image.src = searchResult.Items[i].Item['mediumImageUrl'];
 	imageInfo.appendChild(image);
-	infos.appendChild(imageInfo);
+	imageData.appendChild(imageInfo);
 
 	// ISBNを追加する
 	let isbnInfo = document.createElement('li');
 	isbnInfo.dataset.type = 'isbn';
 	isbnInfo.appendChild(document.createTextNode(searchResult.Items[i].Item['isbn']));
-	infos.appendChild(isbnInfo);
+	imageData.appendChild(isbnInfo);
 
 	// チェックボックスを追加する
 	let checkboxInfo = document.createElement('li');
@@ -144,7 +150,7 @@ for (let i = 0; i < searchResult.Items.length; i++) {
 	let checkbox = document.createElement('input');
 	checkbox.type = 'checkbox';
 	checkboxInfo.appendChild(checkbox);
-	infos.appendChild(checkboxInfo);
+	imageData.appendChild(checkboxInfo);
 	// チェックボックスにリスナーを登録する
 	checkbox.addEventListener('change', function(e) {
 		// チェックがついている場合
@@ -163,6 +169,10 @@ for (let i = 0; i < searchResult.Items.length; i++) {
 		}
 	});
 
+	// テキストデータ等
+	let textData = document.createElement('div');
+	textData.id = 'text-data';
+
 	// 書籍名を追加する
 	let titleInfo = document.createElement('li');
 	titleInfo.dataset.type = 'title';
@@ -170,32 +180,34 @@ for (let i = 0; i < searchResult.Items.length; i++) {
 	link.href = searchResult.Items[i].Item['itemUrl'];
 	link.appendChild(document.createTextNode(searchResult.Items[i].Item['title']));
 	titleInfo.appendChild(link);
-	infos.appendChild(titleInfo);
+	textData.appendChild(titleInfo);
 
 	// 著者名を追加する
 	let authorInfo = document.createElement('li');
 	authorInfo.dataset.type = 'author';
 	authorInfo.appendChild(document.createTextNode(searchResult.Items[i].Item['author']));
-	infos.appendChild(authorInfo);
+	textData.appendChild(authorInfo);
 
 	// 出版社名を追加する
 	let publisherInfo = document.createElement('li');
 	publisherInfo.dataset.type = 'publisher';
 	publisherInfo.appendChild(document.createTextNode(searchResult.Items[i].Item['publisherName']));
-	infos.appendChild(publisherInfo);
+	textData.appendChild(publisherInfo);
 
 	// 発売日を追加する
 	let salesDateInfo = document.createElement('li');
 	salesDateInfo.dataset.type = 'salesDate';
 	salesDateInfo.appendChild(document.createTextNode(searchResult.Items[i].Item['salesDate']));
-	infos.appendChild(salesDateInfo);
+	textData.appendChild(salesDateInfo);
 
 	// 説明を追加する
 	let captionInfo = document.createElement('li');
 	captionInfo.dataset.type = 'caption';
 	captionInfo.appendChild(document.createTextNode(searchResult.Items[i].Item['itemCaption']));
-	infos.appendChild(captionInfo);
-
+	textData.appendChild(captionInfo);
+	
+	infos.appendChild(imageData);
+	infos.appendChild(textData);
 	item.appendChild(infos);
 	items.appendChild(item);
 }
@@ -269,7 +281,7 @@ window.addEventListener('load', function() {
 				// データ件数分ループ
 				for (let i = 0; i < items.length; i++) {
 					let infos = items[i].children;
-					infos.namedItem('check').firstChild.checked = true;
+					infos.namedItem('image-data').children[2].firstChild.checked = true;
 					document.getElementById('register').disabled = false;
 				}
 				e.target.value = '全解除';
@@ -278,7 +290,7 @@ window.addEventListener('load', function() {
 				// データ件数分ループ
 				for (let i = 0; i < items.length; i++) {
 					let infos = items[i].children;
-					infos.namedItem('check').firstChild.checked = false;
+					infos.namedItem('image-data').children[2].firstChild.checked = false;
 					document.getElementById('register').disabled = true;
 				}
 				e.target.value = '全選択';
@@ -289,16 +301,16 @@ window.addEventListener('load', function() {
 	document.getElementById('register').addEventListener('click', function() {
 		if (window.confirm('登録しますか？')) {
 			let items = document.getElementById('item-list').getElementsByTagName('ul');
-
 			// リクエストボディを作成する
 			let requestBody = '{"bookList": [';
 			// 登録データ件数初期化
 			registerItemCount = 0;
+
 			// データ件数分ループ
 			for (let i = 0; i < items.length; i++) {
-				let infos = items[i].children;
 				// チェックがついていない場合
-				if (!infos.namedItem('check').firstChild.checked) {
+				if (!items[i].children.namedItem('image-data').children[2].firstChild.checked) {
+					// 次のデータへ
 					continue;
 				// チェックがついている場合
 				} else {
@@ -307,41 +319,44 @@ window.addEventListener('load', function() {
 						requestBody += ', ';
 					}
 					requestBody += '{';
-					// 登録項目数初期化
-					let registerInfoCount = 0;
+				}
+				// 項目数初期化
+				let registerInfoCount = 0;
+
+				// データブロック数分ループ
+				for (let j = 0; j < items[i].children.length; j++) {
+					let blockId = items[i].children[j].id;
+					let datas = items[i].children.namedItem(blockId).children;
 					// 項目数分ループ
-					for (let j = 0; j < infos.length; j++) {
-						let info = infos[j];
-						let key = info.dataset.type;
+					for (let k = 0; k < datas.length; k++) {
+						let key = datas[k].dataset.type;
 						let value = '';
 						// 設定対象外の項目の場合
 						if (!key) {
+							// 次の項目へ
 							continue;
-						}
-						// 二番目以降の項目の場合
-						if (0 < registerInfoCount) {
-							requestBody += ', ';
-						}
-						// 画像データの場合
-						if (key === 'image') {
-							value = info.firstChild.getAttribute('src');
-						// テキストデータとリンクURL
-						} else if (key === 'title') {
-							requestBody += `"itemUrl": "${info.firstChild.getAttribute('href')}"`;
-							requestBody += ', ';
-							value = info.textContent;
-						// テキストデータの場合
+						// 設定対象の項目の場合
 						} else {
-							value = info.textContent;
+							// 二番目以降の項目の場合
+							if (0 < registerInfoCount) {
+								requestBody += ', ';
+							}
+							// 画像データの場合
+							if (key === 'image') {
+								value = datas[k].firstChild.getAttribute('src');
+							// テキストデータの場合
+							} else {
+								value = datas[k].textContent;
+							}
+							requestBody += `"${key}": "${value}"`;
+							// 項目数カウント
+							registerInfoCount++;
 						}
-						requestBody += `"${key}": "${value}"`;
-						// 登録項目数カウント
-						registerInfoCount++;
 					}
-					requestBody += '}';
-					//登録データ件数カウント
-					registerItemCount++;
 				}
+				requestBody += '}';
+				// 登録データ件数カウント
+				registerItemCount++;
 			}
 			requestBody += '], "operationType": "insert"}';
 
